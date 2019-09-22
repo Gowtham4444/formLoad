@@ -1,0 +1,95 @@
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="style.css">
+<script>
+var arr=new Array();
+function addData()
+{
+  getData();
+  arr.push({
+    name:document.getElementById("name").value,
+    address:document.getElementById("address").value,
+    phone:document.getElementById("phone").value
+  });
+  localStorage.setItem("localData",JSON.stringify(arr));
+  showData();
+}
+function getData()
+{
+  var str= localStorage.getItem("localData");
+   if(str!=null)
+  arr=JSON.parse(str);
+
+}
+function deleteData()
+{
+  localStorage.removeItem("localData");
+}
+function showData()
+{
+  getData();
+
+  var tb1=document.getElementById("myTable");
+
+  var x=tb1.rows.length;
+  while(--x){
+    tb1.deleteRow(x);
+  }
+  for(i=0;i<arr.length;i++)
+  {
+
+
+  var row=tb1.insertRow();
+  var cell1=row.insertCell();
+  var cell2=row.insertCell();
+  var cell3=row.insertCell();
+  cell1.innerHTML=arr[i].name;
+  cell2.innerHTML=arr[i].address;
+  cell3.innerHTML=arr[i].phone;
+}
+}
+
+</script>
+</head>
+<body>
+  <div>
+         <div class="card" >
+            <h1><center>Profile</center></h1>
+
+
+              <div class="container">
+                <form>
+
+
+                        NAME  <input type ="text" id="name" placeholder="name"/> <br><br>
+                        ADDRESS<input type ="text" id="address" placeholder="type your address"/><br><br>
+                        PHONE NUMBER <input type ="int" id="phone" placeholder="ph-no"/><br><br>
+                        <input type="submit" value="Submit" onclick="addData();"/>    <input type="reset" value="Reset"/><br>
+
+                                <br> <input type="button" value="Delete local storage" onclick="deleteData();"/>
+
+                         
+                </form>
+                </div>
+              </div>
+            </div>
+
+
+              <div class="table"><h2> TABLE contents are</h2><br>
+      <table border=1 id="myTable">
+
+          <tr>
+              <th>NAME</th>
+              <th>ADDRESS</th>
+              <th>PHONE</th>
+            </tr>
+        </table>
+<script>
+showData();
+</script>
+
+
+
+</body>
+</html>
